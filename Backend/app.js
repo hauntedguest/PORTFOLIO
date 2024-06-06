@@ -6,6 +6,8 @@ import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import cors from "cors";
 import messageRouter from "./router/messageRoutes.js";
+import userRouter from "./router/userRoutes.js";
+
 const app = express();
 
 dotenv.config({ path: "./config/config.env" });
@@ -26,8 +28,10 @@ app.use(
       useTempFiles: true,
       tempFileDir: "/tmp/",
     })
-  );
-  app.use("/api/v1/message", messageRouter);
+);
+
+app.use("/api/v1/message", messageRouter);
+app.use("/api/v1/user", userRouter);
 
 dbConnection();
 app.use(errorMiddleware);
